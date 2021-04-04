@@ -7,11 +7,11 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import me.dbots.minecraftchecker.Commands.CheckCommand;
 import me.dbots.minecraftchecker.Utils.Constants;
-import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class MinecraftChecker {
         builder.setPrefix(constants.getPrefix());
         builder.setOwnerId(constants.getOwnerID());
         builder.setAlternativePrefix("@mention");
-        builder.setGame(Game.playing(constants.getActivityMessage()));
+        builder.setActivity(Activity.playing(constants.getActivityMessage()));
         builder.setHelpWord("ignored");
         builder.setLinkedCacheSize(200);
         builder.setEmojis("✅", "⚠", "❌");
@@ -52,12 +52,10 @@ public class MinecraftChecker {
 
         CommandClient client = builder.build();
 
-        DefaultShardManagerBuilder shardBuilder = new DefaultShardManagerBuilder();
-        shardBuilder.setToken(constants.getToken());
+        DefaultShardManagerBuilder shardBuilder = DefaultShardManagerBuilder.createDefault(constants.getToken());
         shardBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-        shardBuilder.setGame(Game.playing("Loading..."));
+        shardBuilder.setActivity(Activity.playing("Loading..."));
         shardBuilder.setAutoReconnect(true);
-        shardBuilder.setAudioEnabled(true);
         shardBuilder.addEventListeners(client, waiter);
         shardBuilder.build();
     }
