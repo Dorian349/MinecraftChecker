@@ -14,9 +14,7 @@ Follow the Prerequisites & Installation section.
 ### Installation
 
 ```
-$ Export the project on your IDE.
-$ Compile the project. (ex: `mvn clean compile assembly:single` if you are using Maven)
-$ Create a text file named `config.txt` and fill it with the default version under the Additional Documentation section.
+$ Download MinecraftChecker.jar and config.txt from the Releases section. Then edit the config.txt by replacing the information.
 $ Put both files in the same folder and starts the jar file. `java -jar yourFile.jar`
 ```
 
@@ -35,9 +33,9 @@ ownerID: "Your discord user ID"
 activityMessage: "The activity message displayed by the bot"
 prefix: "-"
 ```
-* Example accounts list string.
+* Example command usage.
 ```
-example@gmail.com:password1
+$prefix$check example@gmail.com:password1
 example2@gmail.com:password2
 example3@gmail.com:password3
 ```
