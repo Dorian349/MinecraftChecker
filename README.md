@@ -1,6 +1,6 @@
 # Minecraft Accounts Checker
 
-A simple java (JDA) discord bot to check Minecraft accounts.
+A simple java (JDA) Discord bot to check Minecraft accounts.
 
 ## Getting Started
 
