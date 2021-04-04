@@ -10,7 +10,7 @@ import net.chris54721.openmcauthenticator.responses.AuthenticationResponse;
 
 public class CheckCommand extends Command {
 
-    private MinecraftChecker minecraftChecker;
+    private final MinecraftChecker minecraftChecker;
 
     public CheckCommand(MinecraftChecker minecraftChecker) {
         this.name = "check";
@@ -28,7 +28,7 @@ public class CheckCommand extends Command {
         }
 
         String[] accounts = event.getArgs().trim().split("\\r?\\n");
-        String accountsWithPseudo = "";
+        StringBuilder accountsWithPseudo = new StringBuilder();
 
         for(String account : accounts){
             String pseudo = account.trim().split(":")[0];
@@ -36,7 +36,7 @@ public class CheckCommand extends Command {
 
             try {
                 AuthenticationResponse authResponse = OpenMCAuthenticator.authenticate(pseudo, password);
-                accountsWithPseudo += account + ":" + authResponse.getSelectedProfile().getName() + "\n";
+                accountsWithPseudo.append(account).append(":").append(authResponse.getSelectedProfile().getName()).append("\n");
             } catch (RequestException | AuthenticationUnavailableException ignored) {}
         }
 

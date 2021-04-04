@@ -1,13 +1,13 @@
-package me.dbots.minecraftchecker;
+package me.dbots.minecraftchecker.Utils;
 
 import com.typesafe.config.Config;
 
 public class Constants {
 
-    private String token;
-    private String ownerID;
-    private String activityMessage;
-    private String prefix;
+    private final String token;
+    private final String ownerID;
+    private final String activityMessage;
+    private final String prefix;
 
     public Constants(Config config){
         this.token = config.getString("token");

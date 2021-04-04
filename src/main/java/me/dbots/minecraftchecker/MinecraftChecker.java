@@ -6,6 +6,7 @@ import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import me.dbots.minecraftchecker.Commands.CheckCommand;
+import me.dbots.minecraftchecker.Utils.Constants;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
@@ -21,8 +22,7 @@ import java.util.concurrent.Executors;
 
 public class MinecraftChecker {
 
-    private EventWaiter waiter;
-    private Constants constants;
+    private final Constants constants;
 
     public static Color embedColor = Color.cyan;
 
@@ -38,14 +38,14 @@ public class MinecraftChecker {
         Config config = ConfigFactory.load();
         constants = new Constants(config);
 
-        waiter = new EventWaiter(Executors.newSingleThreadScheduledExecutor(), false);
+        EventWaiter waiter = new EventWaiter(Executors.newSingleThreadScheduledExecutor(), false);
         CommandClientBuilder builder = new CommandClientBuilder();
 
         builder.setPrefix(constants.getPrefix());
         builder.setOwnerId(constants.getOwnerID());
         builder.setAlternativePrefix("@mention");
         builder.setGame(Game.playing(constants.getActivityMessage()));
-        builder.setHelpWord("dqdmdfljmcs");
+        builder.setHelpWord("ignored");
         builder.setLinkedCacheSize(200);
         builder.setEmojis("✅", "⚠", "❌");
         builder.addCommands(new CheckCommand(this));
@@ -63,7 +63,7 @@ public class MinecraftChecker {
     }
 
     public static void main(String[] args) throws LoginException {
-        MinecraftChecker minecraftChecker = new MinecraftChecker();
+        new MinecraftChecker();
     }
 
     public Constants getConstants() {
