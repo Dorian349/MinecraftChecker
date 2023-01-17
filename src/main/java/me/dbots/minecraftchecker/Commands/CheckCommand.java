@@ -2,32 +2,38 @@ package me.dbots.minecraftchecker.Commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.jagrosh.jdautilities.command.SlashCommand;
+import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import me.dbots.minecraftchecker.MinecraftChecker;
 import net.chris54721.openmcauthenticator.OpenMCAuthenticator;
 import net.chris54721.openmcauthenticator.exceptions.AuthenticationUnavailableException;
 import net.chris54721.openmcauthenticator.exceptions.RequestException;
 import net.chris54721.openmcauthenticator.responses.AuthenticationResponse;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
-public class CheckCommand extends Command {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-    private final MinecraftChecker minecraftChecker;
+public class CheckCommand extends SlashCommand {
 
-    public CheckCommand(MinecraftChecker minecraftChecker) {
+    public CheckCommand() {
         this.name = "check";
         this.help = "Check Command.";
         this.guildOnly = false;
-        this.minecraftChecker = minecraftChecker;
+
+        List<OptionData> options = new ArrayList<>();
+        options.add(new OptionData(OptionType.STRING, "accounts", "All the accounts to check. Format mail:password").setRequired(true));
+
+        this.options = options;
+
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void execute(SlashCommandEvent slashCommandEvent) {
 
-        if(event.getArgs().isEmpty()){
-            event.getTextChannel().sendMessage(MinecraftChecker.buildEmbed(null, "Error: ``" + minecraftChecker.getConstants().getPrefix() + "check (accounts)", null, event.getJDA()).build()).queue();
-            return;
-        }
-
-        String[] accounts = event.getArgs().trim().split("\\r?\\n");
+        String[] accounts = Objects.requireNonNull(slashCommandEvent.getOption("accounts")).getAsString().split("\\r?\\n");
         StringBuilder accountsWithPseudo = new StringBuilder();
 
         for(String account : accounts){
@@ -40,7 +46,7 @@ public class CheckCommand extends Command {
             } catch (RequestException | AuthenticationUnavailableException ignored) {}
         }
 
-        event.getTextChannel().sendMessage("```" + accountsWithPseudo +  "```").queue();
+        slashCommandEvent.reply("```" + accountsWithPseudo +  "```").queue();
 
     }
 }

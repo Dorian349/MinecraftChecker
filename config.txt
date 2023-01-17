@@ -1,0 +1,4 @@
+token: "Your token"
+ownerID: "Your discord user ID"
+activityMessage: "The activity message displayed by the bot"
+prefix: "-"

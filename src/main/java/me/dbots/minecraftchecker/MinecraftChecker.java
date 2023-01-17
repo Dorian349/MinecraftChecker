@@ -48,7 +48,7 @@ public class MinecraftChecker {
         builder.setHelpWord("ignored");
         builder.setLinkedCacheSize(200);
         builder.setEmojis("✅", "⚠", "❌");
-        builder.addCommands(new CheckCommand(this));
+        builder.addSlashCommand(new CheckCommand());
 
         CommandClient client = builder.build();
 
