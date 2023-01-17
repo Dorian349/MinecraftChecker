@@ -33,10 +33,11 @@ public class CheckCommand extends SlashCommand {
     @Override
     protected void execute(SlashCommandEvent slashCommandEvent) {
 
-        String[] accounts = Objects.requireNonNull(slashCommandEvent.getOption("accounts")).getAsString().split("\\r?\\n");
+        String[] accounts = Objects.requireNonNull(slashCommandEvent.getOption("accounts")).getAsString().split(" ");
         StringBuilder accountsWithPseudo = new StringBuilder();
 
         for(String account : accounts){
+            if(account.trim().split(":").length != 2) continue;
             String pseudo = account.trim().split(":")[0];
             String password = account.trim().split(":")[1];
 
