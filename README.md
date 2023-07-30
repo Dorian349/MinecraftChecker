@@ -14,16 +14,12 @@ Follow the Prerequisites & Installation section.
 
 ### Installation
 
-```
-$ Download MinecraftChecker.jar and config.txt from the Releases section. Then edit the config.txt by replacing the information.
-$ Put both files in the same folder and starts the jar file. `java -jar yourFile.jar`
-```
+* Download MinecraftChecker.jar and config.txt from the Releases section. Then edit the config.txt by replacing the information.
+* Put both files in the same folder and starts the jar file. `java -jar yourFile.jar`
 
 ## Usage
 
-```
-$ Once your bot has started, simply use `/check (accounts)` and the bot will reply with all valid accounts and their username.
-```
+* Once your bot has started, simply use `/check (accounts)` and the bot will reply with all valid accounts and their username.
 
 ## Additional Documentation and Acknowledgments
 
